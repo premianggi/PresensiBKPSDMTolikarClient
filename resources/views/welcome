@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Attendance Client</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" type="text/css">
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Nunito', sans-serif;
+                font-weight: 200;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .top-right {
+                position: absolute;
+                right: 10px;
+                top: 18px;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 34px;
+            }
+
+            .links > a {
+                color: #636b6f;
+                padding: 0 25px;
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: .1rem;
+                text-decoration: none;
+                text-transform: uppercase;
+            }
+
+            .m-b-md {
+                margin-bottom: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            @if (Route::has('login'))
+                <div class="top-right links">
+                    @auth
+                        <a href="{{ url('/home') }}">Home</a>
+                    @else
+                        <a href="{{ route('login') }}">Login</a>
+
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}">Register</a>
+                        @endif
+                    @endauth
+                </div>
+            @endif
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-7" style="border:1px dotted;padding:30px;">
+                            <div class="title m-b-md">
+                                    Attendance Client
+                                </div>
+                                <HR>
+
+                                @include('alert')
+
+                                {{ Form::open(['url'=>'kirim-data-absen'])}}
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <label>Periode Awal</label>
+                                        <input type="date" name="mulai" class="form-control" placeholder="Periode Mulai">
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label>Periode Akhir</label>
+                                        <input type="date" name="selesai" class="form-control" placeholder="Periode Mulai">
+                                    </div>
+
+                                    <div class="col-md-2">
+                                            <label> &nbsp;&nbsp; </label>
+                                        <button type="submit" class="btn btn-danger">Kirim Data</button>
+                                    </div>
+                                </div>
+                                </form>
+                    </div>
+                    <div class="col-md-5">
+                            <div class="alert alert-success" role="alert">
+                                    <b>Status Server</b> : <b>Connected</b>
+                            </div>
+                            <div class="alert alert-primary" role="alert">
+                                   <h4>Informasi : </h4>
+                                   <hr>
+                                   silahkan input periode kehadiran yang ingin diproses dari mulai hari H sampai H + 1.
+                                   <br>
+                                   Contoh : 1 Januari 2019 Sampai 2 januari 2019 ( H+1 Digunakan Untuk Mendapatkan Informasi Shift 2S1 )
+                                  </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
